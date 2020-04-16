@@ -25,3 +25,7 @@ button {
   height: 60px;
   font-size: 30px;
 }
+.clear {
+  background-color: #A9A9A9;
+  width: 100%;
+}
