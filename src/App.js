@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import './App.css';
 import ResultComponent from './components/ResultComponent';
 import KeyPadComponent from "./components/KeyPadComponent";
+import HistorySpace from "./components/HistorySpace";
 
 class App extends Component {
     constructor(){
         super();
 
         this.state = {
-            result: ""
-        }
+            result: "" ,
+            history: ""
+        };
     }
 
     onClick = button => {
@@ -33,8 +35,9 @@ class App extends Component {
       try {
           this.setState({
               // eslint-disable-next-line
-              result: (eval(this.state.result) || "" ) + ""
-          })
+              result: (eval(this.state.result) || "" ) + "" ,
+            //   history: this.state.history.push(this.state.result)
+                     })
       } catch (e) {
           this.setState({
               result: "error"
@@ -56,6 +59,7 @@ class App extends Component {
                 <div className="calculator-body">
                     <ResultComponent result={this.state.result}/>
                     <KeyPadComponent onClick={this.onClick}/>
+                    <HistorySpace history={this.state.history}/>
                 </div>
             </div>
         );
