@@ -11,13 +11,22 @@ class App extends Component {
         this.state = {
             result: "" ,
             history: [],
-
+            mathSign:true
         };
     }
 
     onClick = button => {
         
-      if(button === "="){
+        if(button === "/" || button === "*" || button === "+" || button === "-"){
+            this.setState({
+                result: "" ,
+                history: [],
+                mathSign:false
+        });
+    }
+
+      if(button === "=" && this.state.mathSign === false){
+          
           this.calculate()
       }
 
