@@ -10,12 +10,13 @@ class App extends Component {
 
         this.state = {
             result: "" ,
-            history: ""
+            history: [],
+
         };
     }
 
     onClick = button => {
-
+        
       if(button === "="){
           this.calculate()
       }
@@ -36,7 +37,8 @@ class App extends Component {
           this.setState({
               // eslint-disable-next-line
               result: (eval(this.state.result) || "" ) + "" ,
-            //   history: this.state.history.push(this.state.result)
+              
+              history:[...this.state.history ,this.state.result + "=" + eval(this.state.result)] //this.state.history.push(this.state.result)
                      })
       } catch (e) {
           this.setState({

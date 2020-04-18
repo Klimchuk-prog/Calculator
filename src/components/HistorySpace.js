@@ -13,12 +13,15 @@
 import React, {Component} from 'react';
 
 class HistorySpace extends Component {
-
+  
     render() {
-        let {history} = this.props;
+      let {history} = this.props;
+      const arrayHistory = history.map((el,index) =>
+    <p key = {index}>{el}</p>)
+        
         return (
             <div className="history">
-                <p>{history}</p>
+                <p>{arrayHistory}</p>
             </div>
     )
         ;
