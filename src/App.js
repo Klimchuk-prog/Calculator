@@ -11,7 +11,8 @@ class App extends Component {
         this.state = {
             result: "" ,
             history: [],
-            mathSign:true
+            mathSign:false,
+            haveOperation: false
         };
     }
 
@@ -19,13 +20,14 @@ class App extends Component {
         
         if(button === "/" || button === "*" || button === "+" || button === "-"){
             this.setState({
-                result: "" ,
-                history: [],
-                mathSign:false
+                result: this.state.result + button,
+                mathSign:true,
+                haveOperation: true
+                
         });
     }
 
-      if(button === "=" && this.state.mathSign === false){
+      else if(button === "=" && !this.state.mathSign && this.state.haveOperation){
           
           this.calculate()
       }
@@ -34,19 +36,24 @@ class App extends Component {
           this.reset()
       }
 
-      else {
+      else if (button !== "="){
+
           this.setState({
-              result: this.state.result + button
+              result: this.state.result + button,
+              mathSign:false
           })
       }
   };
+    
 
     calculate = () => {
       try {
           this.setState({
               // eslint-disable-next-line
               result: (eval(this.state.result) || "" ) + "" ,
-              
+              mathSign:false,
+            haveOperation: false,
+              // eslint-disable-next-line
               history:[...this.state.history ,this.state.result + "=" + eval(this.state.result)] //this.state.history.push(this.state.result)
                      })
       } catch (e) {
@@ -59,8 +66,10 @@ class App extends Component {
 
   reset = () => {
       this.setState({
-          result: ""
-      })
+          result: "",
+          mathSign:false,
+        haveOperation: false
+      });
   };
 
 
@@ -68,8 +77,10 @@ class App extends Component {
         return (
             <div>
                 <div className="calculator-body">
-                    <ResultComponent result={this.state.result}/>
-                    <KeyPadComponent onClick={this.onClick}/>
+                    <div className = "result-button">
+                        <ResultComponent result={this.state.result}/>
+                        <KeyPadComponent onClick={this.onClick}/>
+                    </div>
                     <HistorySpace history={this.state.history}/>
                 </div>
             </div>
